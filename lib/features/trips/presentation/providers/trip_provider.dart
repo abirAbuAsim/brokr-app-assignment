@@ -10,6 +10,7 @@ import '../../domain/usecases/add_all_trip.dart';
 import '../../domain/usecases/add_trip.dart';
 import '../../domain/usecases/delete_trip.dart';
 import '../../domain/usecases/get_trips.dart';
+import '../../domain/usecases/update_trip.dart';
 
 final tripLocalDataSourceProvider = Provider<TripLocalDataSource>((ref) {
   final Box<TripModel> tripBox = Hive.box('trips');
@@ -31,9 +32,14 @@ final addTripProvider = Provider<AddTrip>((ref) {
   return AddTrip(repository);
 });
 
-final addAllCarsProvider = Provider<AddAllNewTrip>((ref) {
+final addAllNewTripProvider = Provider<AddAllNewTrip>((ref) {
   final repository = ref.read(tripRepositoryProvider);
   return AddAllNewTrip(repository);
+});
+
+final updateTripProvider = Provider<UpdateTrip>((ref) {
+  final repository = ref.read(tripRepositoryProvider);
+  return UpdateTrip(repository);
 });
 
 final deleteTripProvider = Provider<DeleteTrip>((ref) {
@@ -45,19 +51,21 @@ final deleteTripProvider = Provider<DeleteTrip>((ref) {
 final tripListNotifierProvider = StateNotifierProvider<TripListNotifier, List<Trip>>((ref) {
   final getTrips = ref.read(getTripsProvider);
   final addTrip = ref.read(addTripProvider);
-  final addAllNewTrip = ref.read(addAllCarsProvider);
+  final addAllNewTrip = ref.read(addAllNewTripProvider);
+  final updateTrip = ref.read(updateTripProvider);
   final deleteTrip = ref.read(deleteTripProvider);
 
-  return TripListNotifier(getTrips, addTrip, addAllNewTrip, deleteTrip);
+  return TripListNotifier(getTrips, addTrip, addAllNewTrip, updateTrip, deleteTrip);
 });
 
 class TripListNotifier extends StateNotifier<List<Trip>> {
   final GetTrips _getTrips;
   final AddTrip _addTrip;
   final AddAllNewTrip _addAllNewTrip;
+  final UpdateTrip _updateTrip;
   final DeleteTrip _deleteTrip;
 
-  TripListNotifier(this._getTrips, this._addTrip, this._addAllNewTrip, this._deleteTrip) : super([]);
+  TripListNotifier(this._getTrips, this._addTrip, this._addAllNewTrip, this._updateTrip, this._deleteTrip) : super([]);
 
   // Load trips from the repository and update the state.
   Future<void> loadTrips() async {
@@ -70,8 +78,13 @@ class TripListNotifier extends StateNotifier<List<Trip>> {
     //state = [...state, trip];
   }
 
-  Future<void> addAllNewTrip(List<Trip> trip) async {
+  Future<void> addAllTrip(List<Trip> trip) async {
     await _addAllNewTrip(trip);
+    //state = [...state, trip];
+  }
+
+  Future<void> updateTrip(Trip trip) async {
+    await _updateTrip(trip);
     //state = [...state, trip];
   }
 

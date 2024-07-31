@@ -16,7 +16,7 @@ class MainScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(tripListNotifierProvider.notifier).addAllNewTrip(allNewTrip);
+    ref.read(tripListNotifierProvider.notifier).addAllTrip([]);
 
     ref.watch(tripListNotifierProvider.notifier).loadTrips();
     _pageController.addListener(() {
@@ -29,7 +29,6 @@ class MainScreen extends ConsumerWidget {
         children: [
           MyTripsScreen(),
           const Center(child: Text("Favorite")),
-          // AddTripScreen(),
           const Center(child: Text("Trips")),
           const Center(child: Text("Inbox")),
           const Center(child: Text("Profile")),
@@ -109,38 +108,3 @@ class MainScreen extends ConsumerWidget {
   }
 }
 
-final allNewTrip = [
-  Trip(
-    id: DateTime.now().millisecondsSinceEpoch,
-    title: 'Title card item full name',
-    description: '',
-    count: '10',
-    rating: '5',
-    amount: '\$999',
-    date: DateTime.now(),
-    location: 'bangladesh',
-    photos: ['pictures'],
-  ),
-  Trip(
-    id: DateTime.now().millisecondsSinceEpoch,
-    title: 'Title card item full name',
-    description: '',
-    count: '10',
-    rating: '5',
-    amount: '\$999',
-    date: DateTime.now(),
-    location: 'bangladesh',
-    photos: ['pictures'],
-  ),
-  Trip(
-    id: DateTime.now().millisecondsSinceEpoch,
-    title: 'Title card item full name',
-    description: '',
-    count: '10',
-    rating: '5',
-    amount: '\$999',
-    date: DateTime.now(),
-    location: 'bangladesh',
-    photos: ['pictures'],
-  ),
-];

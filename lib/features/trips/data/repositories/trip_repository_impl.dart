@@ -18,6 +18,12 @@ class TripRepositoryImpl implements TripRepository{
   }
 
   @override
+  Future<void> updateTrip(Trip trip) async {
+    final tripModel = TripModel.fromEntity(trip);
+    localDataSource.updateTrip(tripModel);
+  }
+
+  @override
   Future<void> addAllNewTrip(List<Trip> trip) async {
     final allNewTrip = List<TripModel>.from(trip.map((x) => TripModel.fromEntity(x)));
     localDataSource.addAllNewTrip(allNewTrip);

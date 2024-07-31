@@ -7,13 +7,13 @@ import 'package:intl/intl.dart';
 
 import '../providers/trip_provider.dart';
 import '../widgets/travel_card.dart';
+import 'add_trip_screen.dart';
 
 class MyTripsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //ref.read(tripListNotifierProvider.notifier).loadTrips();
     final tripList = ref.watch(tripListNotifierProvider);
-
     return DefaultTabController(
       length: 3, // Number of tabs
       initialIndex: 1,
@@ -61,7 +61,9 @@ class MyTripsScreen extends ConsumerWidget {
                     color: Color(0xFFABB2BE),
                     margin: EdgeInsets.symmetric(vertical: 5),
                   ),
-                  SizedBox(width: 5,),
+                  SizedBox(
+                    width: 5,
+                  ),
                   Row(
                     children: [
                       SvgPicture.asset(
@@ -106,10 +108,13 @@ class MyTripsScreen extends ConsumerWidget {
               itemCount: tripList.length,
               itemBuilder: (context, index) {
                 final trip = tripList[index];
-                return CarCard(
+                return TravelCard(
                   imageUrl: trip.photos[0],
                   title: trip.title,
                   description: trip.description,
+                  rating: trip.rating,
+                  count: trip.count,
+                  amount: trip.amount,
                   date: DateFormat.yMMMEd().format(trip.date).toString(),
                   location: trip.location,
                   onLongPress: () async {
@@ -135,7 +140,15 @@ class MyTripsScreen extends ConsumerWidget {
                         actionsAlignment: MainAxisAlignment.center,
                         actions: <Widget>[
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddTripScreen(trip: trip),
+                                ),
+                              );
+                            },
                             child: Text(
                               'Edit',
                               style: GoogleFonts.inter(
@@ -171,7 +184,7 @@ class MyTripsScreen extends ConsumerWidget {
                 );
               },
             ),
-            Center(child: Text('Bike Tab')),
+            Center(child: Text('Bike Tab'),),
           ],
         ),
       ),
@@ -194,7 +207,7 @@ class _CustomTabIndicatorPainter extends BoxPainter {
     paint.style = PaintingStyle.fill;
     final double width =
         configuration.size!.width / 2; // Adjust the width as needed
-    final double height = 4.0; // Adjust the height as needed
+    const double height = 4.0; // Adjust the height as needed
     final double xOffset = offset.dx + (configuration.size!.width - width) / 2;
     final double yOffset = offset.dy + configuration.size!.height - height;
     final Rect rect = Rect.fromLTWH(xOffset, yOffset, width, height);

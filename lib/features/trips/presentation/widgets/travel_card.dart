@@ -8,156 +8,20 @@ class TravelCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String description;
-  final String date;
-  final String location;
-  final VoidCallback onDelete;
-
-  TravelCard({
-    required this.imageUrl,
-    required this.title,
-    required this.description,
-    required this.date,
-    required this.location,
-    required this.onDelete,
-  });
-
-  void showAlertDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext alertContext) {
-          return AlertDialog(
-            title: const Text("Description"),
-            backgroundColor: Theme
-                .of(context)
-                .cardColor,
-            content: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(description),
-                ]
-            ),
-          );
-        }
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      width: 300,
-      padding: const EdgeInsets.all(12),
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 2,
-              child: GestureDetector(
-                onTap: () {
-                  showAlertDialog(context);
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)
-                  ),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                ),
-              ),
-            ),
-            /*Positioned(
-              right: 10,
-              top: 10,
-              child: IconButton(
-                icon: Icon(Icons.delete, color: Colors.white),
-                onPressed: onDelete,
-              ),
-            ),
-            Positioned(
-              left: 16,
-              bottom: 60,
-              child: Text(
-                description,
-                style: GoogleFonts.inter(color: Colors.white),
-              ),
-            ),*/
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          location,
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,),
-                        ),
-                        Text(
-                          date,
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          title,
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red[700]),
-                          onPressed: onDelete,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CarCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String description;
+  final String rating;
+  final String count;
+  final String amount;
   final String date;
   final String location;
   final VoidCallback onLongPress;
 
-  const CarCard({super.key,
+  const TravelCard({super.key,
     required this.imageUrl,
     required this.title,
     required this.description,
+    required this.rating,
+    required this.count,
+    required this.amount,
     required this.date,
     required this.location,
     required this.onLongPress,
@@ -202,7 +66,7 @@ class CarCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Title card item full name',
+                    title,
                     style: GoogleFonts.inter(
                       color: Colors.black,
                       fontSize: 14,
@@ -222,7 +86,7 @@ class CarCard extends StatelessWidget {
                           ),
                           SizedBox(width: 5,),
                           Text(
-                            '5.0',
+                            rating,
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
                               color: Color(0xFF646464),
@@ -242,7 +106,7 @@ class CarCard extends StatelessWidget {
                           ),
                           SizedBox(width: 5,),
                           Text(
-                            '10 Trips',
+                            '$count Trips',
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
                               color: Color(0xFF646464),
@@ -256,7 +120,7 @@ class CarCard extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '\$999/',
+                              text: '\$$amount/',
                               style: GoogleFonts.inter(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -287,7 +151,7 @@ class CarCard extends StatelessWidget {
                       ),
                       SizedBox(width: 5,),
                       Text(
-                        '11.6 mi from current location',
+                        '$location mi from current location',
                         style: GoogleFonts.inter(
                           color: Color(0xFF646464),
                           fontSize: 12,

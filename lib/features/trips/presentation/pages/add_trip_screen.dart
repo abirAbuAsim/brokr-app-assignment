@@ -18,10 +18,15 @@ class AddTripScreen extends ConsumerWidget {
     final countController = TextEditingController(text: trip.count);
     final amountController = TextEditingController(text: trip.amount);
     final locationController = TextEditingController(text: trip.location);
-    final pictureController = TextEditingController(text: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D');
+    final isTopHostController = TextEditingController(text: trip.isTopHost);
+    final pictureController = TextEditingController(
+        text:
+            'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D');
     List<String> pictures = [];
     return Scaffold(
-      appBar: AppBar(title: Text('Update'),),
+      appBar: AppBar(
+        title: Text('Update'),
+      ),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -30,7 +35,9 @@ class AddTripScreen extends ConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     headingTitle: 'Title',
                     controller: titleController,
@@ -38,7 +45,9 @@ class AddTripScreen extends ConsumerWidget {
                     maxLine: 1,
                     fillColor: Colors.white,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     headingTitle: 'Description',
                     controller: descController,
@@ -46,7 +55,9 @@ class AddTripScreen extends ConsumerWidget {
                     maxLine: 1,
                     fillColor: Colors.white,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     headingTitle: 'Rating',
                     controller: ratingController,
@@ -54,7 +65,9 @@ class AddTripScreen extends ConsumerWidget {
                     maxLine: 1,
                     fillColor: Colors.white,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     headingTitle: 'Trip',
                     controller: countController,
@@ -62,7 +75,9 @@ class AddTripScreen extends ConsumerWidget {
                     maxLine: 1,
                     fillColor: Colors.white,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     headingTitle: 'Amount',
                     controller: amountController,
@@ -70,7 +85,9 @@ class AddTripScreen extends ConsumerWidget {
                     maxLine: 1,
                     fillColor: Colors.white,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     headingTitle: 'Location',
                     controller: locationController,
@@ -78,7 +95,9 @@ class AddTripScreen extends ConsumerWidget {
                     maxLine: 1,
                     fillColor: Colors.white,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     headingTitle: 'Photo',
                     controller: pictureController,
@@ -86,7 +105,9 @@ class AddTripScreen extends ConsumerWidget {
                     maxLine: 1,
                     fillColor: Colors.white,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       pictures.add(pictureController.text);
@@ -100,9 +121,12 @@ class AddTripScreen extends ConsumerWidget {
                           rating: ratingController.text,
                           date: DateTime.now(),
                           location: locationController.text,
+                          isTopHost: isTopHostController.text,
                           photos: pictures,
                         );
-                        ref.read(tripListNotifierProvider.notifier).updateTrip(newTrip);
+                        ref
+                            .read(tripListNotifierProvider.notifier)
+                            .updateTrip(newTrip);
                         ref.read(tripListNotifierProvider.notifier).loadTrips();
                         Navigator.pop(context);
                       }

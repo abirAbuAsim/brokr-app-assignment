@@ -9,7 +9,6 @@ class TripLocalDataSource {
 
   TripLocalDataSource(this.tripBox);
 
-
   final allNewTrip = [
     TripModel(
       id: 1,
@@ -20,6 +19,7 @@ class TripLocalDataSource {
       amount: '999',
       date: DateTime.now(),
       location: '11.6',
+      isTopHost: 'YES',
       photos: ['pictures'],
     ),
     TripModel(
@@ -31,6 +31,7 @@ class TripLocalDataSource {
       amount: '999',
       date: DateTime.now(),
       location: '11.6',
+      isTopHost: 'NO',
       photos: ['pictures'],
     ),
     TripModel(
@@ -42,11 +43,12 @@ class TripLocalDataSource {
       amount: '999',
       date: DateTime.now(),
       location: '11.6',
+      isTopHost: 'YES',
       photos: ['pictures'],
     ),
   ];
 
-  List<TripModel> getTrips(){
+  List<TripModel> getTrips() {
     return allNewTrip;
   }
 
@@ -57,6 +59,7 @@ class TripLocalDataSource {
   Future<void> updateTrip(TripModel trip) async {
     updateItemById(allNewTrip, trip.id, trip);
   }
+
   void updateItemById(List<TripModel> list, int id, TripModel newValue) {
     for (int i = 0; i < list.length; i++) {
       if (list[i].id == id) {
@@ -65,6 +68,7 @@ class TripLocalDataSource {
       }
     }
   }
+
   void addAllNewTrip(List<TripModel> trip) {
     tripBox.addAll(trip);
   }
@@ -72,5 +76,4 @@ class TripLocalDataSource {
   void deleteTrip(int index) {
     allNewTrip.removeAt(index);
   }
-
 }

@@ -15,7 +15,6 @@ Future<void> main() async {
   Hive.registerAdapter(TripModelAdapter());
   await Hive.openBox<TripModel>('trips');
 
-
   runApp(ProviderScope(child: MyApp()));
 }
 

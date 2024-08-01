@@ -1,4 +1,3 @@
-
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../domain/entitites/trip.dart';
@@ -34,6 +33,9 @@ class TripModel {
   @HiveField(8)
   final String location;
 
+  @HiveField(9)
+  final String isTopHost;
+
   TripModel({
     required this.id,
     required this.title,
@@ -44,6 +46,7 @@ class TripModel {
     required this.amount,
     required this.date,
     required this.location,
+    required this.isTopHost,
   });
   // Conversion from Entity to Model
   factory TripModel.fromEntity(Trip trip) => TripModel(
@@ -55,8 +58,8 @@ class TripModel {
       count: trip.count,
       amount: trip.amount,
       date: trip.date,
-      location: trip.location
-  );
+      location: trip.location,
+      isTopHost: trip.isTopHost);
 
   // Conversion from Model to Entity
   Trip toEntity() => Trip(
@@ -68,7 +71,6 @@ class TripModel {
       count: count,
       amount: amount,
       date: date,
-      location: location
-  );
-
+      location: location,
+      isTopHost: isTopHost);
 }

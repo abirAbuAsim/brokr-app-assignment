@@ -117,6 +117,7 @@ class MyTripsScreen extends ConsumerWidget {
                   amount: trip.amount,
                   date: DateFormat.yMMMEd().format(trip.date).toString(),
                   location: trip.location,
+                  isTopHost: 'YES',
                   onLongPress: () async {
                     await showDialog(
                       context: context,
@@ -145,7 +146,8 @@ class MyTripsScreen extends ConsumerWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AddTripScreen(trip: trip),
+                                  builder: (context) =>
+                                      AddTripScreen(trip: trip),
                                 ),
                               );
                             },
@@ -184,7 +186,9 @@ class MyTripsScreen extends ConsumerWidget {
                 );
               },
             ),
-            Center(child: Text('Bike Tab'),),
+            Center(
+              child: Text('Bike Tab'),
+            ),
           ],
         ),
       ),

@@ -23,9 +23,6 @@ class UpdateTripScreen extends ConsumerWidget {
     final countController = TextEditingController(text: trip.count);
     final amountController = TextEditingController(text: trip.amount);
     final locationController = TextEditingController(text: trip.location);
-    final pictureController = TextEditingController(
-        text:
-            'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D');
     List<String> pictures = [];
     bool selectedDeal = trip.deal;
     bool selectedTopHost = trip.topHost;
@@ -215,13 +212,6 @@ class UpdateTripScreen extends ConsumerWidget {
                   SizedBox(
                     height: 10.h,
                   ),
-                  CustomTextFormField(
-                    headingTitle: 'Photo',
-                    controller: pictureController,
-                    keyboardType: TextInputType.text,
-                    maxLine: 1,
-                    fillColor: Colors.white,
-                  ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -230,7 +220,7 @@ class UpdateTripScreen extends ConsumerWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          pictures.add(pictureController.text);
+                          pictures.add('assets/images/c1.png');
                           if (_formKey.currentState!.validate()) {
                             final newTrip = Trip(
                               id: trip.id,

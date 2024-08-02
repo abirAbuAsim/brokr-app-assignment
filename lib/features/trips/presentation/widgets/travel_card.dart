@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/tools.dart';
-
 class TravelCard extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -38,7 +36,7 @@ class TravelCard extends StatelessWidget {
     return Card(
       margin: EdgeInsetsDirectional.symmetric(horizontal: 15.w, vertical: 5.h),
       shape: RoundedRectangleBorder(
-        side: BorderSide(width: 0.70.w, color: Color(0xFFD3D3D3)),
+        side: BorderSide(width: 0.70.w, color: const Color(0xFFD3D3D3)),
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: InkWell(
@@ -161,7 +159,7 @@ class TravelCard extends StatelessWidget {
                             rating,
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
-                              color: Color(0xFF646464),
+                              color: const Color(0xFF646464),
                               fontSize: 8.71.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -173,7 +171,7 @@ class TravelCard extends StatelessWidget {
                             '|',
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
-                              color: Color(0xFF4F4F4F),
+                              color: const Color(0xFF4F4F4F),
                               fontSize: 8.71.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -185,7 +183,7 @@ class TravelCard extends StatelessWidget {
                             '$count Trips',
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
-                              color: Color(0xFF646464),
+                              color: const Color(0xFF646464),
                               fontSize: 8.71.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -206,7 +204,7 @@ class TravelCard extends StatelessWidget {
                             TextSpan(
                               text: 'day',
                               style: GoogleFonts.inter(
-                                color: Color(0xFF4F4F4F),
+                                color: const Color(0xFF4F4F4F),
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),

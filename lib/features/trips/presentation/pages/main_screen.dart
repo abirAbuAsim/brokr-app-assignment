@@ -4,9 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../domain/entitites/trip.dart';
 import '../providers/trip_provider.dart';
-import 'update_trip_screen.dart';
 import 'my_trip_screen.dart';
 
 class MainScreen extends ConsumerWidget {
@@ -57,7 +55,10 @@ class MainScreen extends ConsumerWidget {
                   'assets/svg/buttom_search.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: pageIndex == 0 ? const Color(0xFF6366F1) : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    pageIndex == 0 ? const Color(0xFF6366F1) : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 label: 'Explore',
               ),
@@ -66,7 +67,10 @@ class MainScreen extends ConsumerWidget {
                   'assets/svg/buttom_favorities.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: pageIndex == 1 ? const Color(0xFF6366F1) : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    pageIndex == 0 ? const Color(0xFF6366F1) : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 label: 'Favorite',
               ),
@@ -75,7 +79,10 @@ class MainScreen extends ConsumerWidget {
                   'assets/svg/buttom_trips.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: pageIndex == 2 ? const Color(0xFF6366F1) : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    pageIndex == 0 ? const Color(0xFF6366F1) : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 label: 'Trips',
               ),
@@ -84,7 +91,10 @@ class MainScreen extends ConsumerWidget {
                   'assets/svg/buttom_inbox.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: pageIndex == 3 ? const Color(0xFF6366F1) : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    pageIndex == 0 ? const Color(0xFF6366F1) : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 label: 'Inbox',
               ),
@@ -93,7 +103,10 @@ class MainScreen extends ConsumerWidget {
                   'assets/svg/buttom_profile.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: pageIndex == 4 ? const Color(0xFF6366F1) : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    pageIndex == 0 ? const Color(0xFF6366F1) : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 label: 'Profile',
               ),
@@ -107,4 +120,3 @@ class MainScreen extends ConsumerWidget {
     );
   }
 }
-

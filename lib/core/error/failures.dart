@@ -5,5 +5,5 @@ abstract class Failure {
 }
 
 class SomeSpecificError extends Failure {
-  SomeSpecificError(String message) : super(message);
+  SomeSpecificError(super.message);
 }

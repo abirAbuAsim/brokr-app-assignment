@@ -53,7 +53,7 @@ class MyTripsScreen extends ConsumerWidget {
                         Text(
                           'Miami Beach, FL',
                           style: GoogleFonts.inter(
-                            color: Color(0xFF5A6684),
+                            color: const Color(0xFF5A6684),
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
                           ),
@@ -64,7 +64,7 @@ class MyTripsScreen extends ConsumerWidget {
                   Container(
                     height: double.infinity,
                     width: 1.w,
-                    color: Color(0xFFABB2BE),
+                    color: const Color(0xFFABB2BE),
                     margin: EdgeInsets.symmetric(vertical: 5.h),
                   ),
                   SizedBox(
@@ -83,7 +83,7 @@ class MyTripsScreen extends ConsumerWidget {
                       Text(
                         '22/11 - 25/11',
                         style: GoogleFonts.inter(
-                          color: Color(0xFF5A6684),
+                          color: const Color(0xFF5A6684),
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                         ),
@@ -101,12 +101,12 @@ class MyTripsScreen extends ConsumerWidget {
               borderSide: BorderSide(width: 2.0.w, color: primaryColor),
             ),
             labelStyle: GoogleFonts.inter(
-              color: Color(0xFF6366F1),
+              color: const Color(0xFF6366F1),
               fontSize: 12.sp,
               fontWeight: FontWeight.w600,
             ),
             unselectedLabelStyle: GoogleFonts.inter(
-              color: Color(0xFFABB2BE),
+              color: const Color(0xFFABB2BE),
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
             ),
@@ -119,7 +119,10 @@ class MyTripsScreen extends ConsumerWidget {
                   'assets/svg/boat_flat.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: currentTabIndex == 0 ? primaryColor : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    currentTabIndex == 0 ? primaryColor : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 text: "Boats",
               ),
@@ -128,7 +131,10 @@ class MyTripsScreen extends ConsumerWidget {
                   'assets/svg/car_flat.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: currentTabIndex == 1 ? primaryColor : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    currentTabIndex == 0 ? primaryColor : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 text: "Cars",
               ),
@@ -137,7 +143,10 @@ class MyTripsScreen extends ConsumerWidget {
                   'assets/svg/house_flat.svg',
                   height: 24.h,
                   width: 24.w,
-                  color: currentTabIndex == 2 ? primaryColor : Colors.grey,
+                  colorFilter: ColorFilter.mode(
+                    currentTabIndex == 0 ? primaryColor : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 text: "Stays",
               ),

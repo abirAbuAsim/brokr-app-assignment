@@ -53,7 +53,6 @@ final trips = [
 ];
 
 final tripLocalDataSourceProvider = Provider<TripLocalDataSource>((ref) {
-// TODO: send list
   final allNewTrip =
       List<TripModel>.from(trips.map((x) => TripModel.fromEntity(x)));
   return TripLocalDataSource(allNewTrip);

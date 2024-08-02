@@ -1,19 +1,25 @@
 import 'package:brokr/core/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../providers/trip_provider.dart';
 import '../widgets/travel_card.dart';
-import 'add_trip_screen.dart';
+import 'update_trip_screen.dart';
 
 class MyTripsScreen extends ConsumerWidget {
+  const MyTripsScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //ref.read(tripListNotifierProvider.notifier).loadTrips();
-    final tripList = ref.watch(tripListNotifierProvider);
+    final tripListState = ref.watch(tripListNotifierProvider);
+    final tripListNotifier = ref.read(tripListNotifierProvider.notifier);
+    final tripList = tripListState.trips;
+    final currentTabIndex = tripListState.tabIndex;
     return DefaultTabController(
       length: 3, // Number of tabs
       initialIndex: 1,
@@ -21,16 +27,16 @@ class MyTripsScreen extends ConsumerWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          toolbarHeight: 60,
+          toolbarHeight: 90.h,
           title: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(50.r),
             ),
             elevation: 3,
             child: Container(
               width: double.infinity,
-              height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              height: 50.h,
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Row(
                 children: [
                   Expanded(
@@ -38,17 +44,17 @@ class MyTripsScreen extends ConsumerWidget {
                       children: [
                         SvgPicture.asset(
                           'assets/svg/location_flat_appbar.svg',
-                          height: 24,
-                          width: 24,
+                          height: 24.h,
+                          width: 24.w,
                         ),
                         SizedBox(
-                          width: 5,
+                          width: 5.w,
                         ),
                         Text(
                           'Miami Beach, FL',
                           style: GoogleFonts.inter(
                             color: Color(0xFF5A6684),
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         )
@@ -57,28 +63,28 @@ class MyTripsScreen extends ConsumerWidget {
                   ),
                   Container(
                     height: double.infinity,
-                    width: 1,
+                    width: 1.w,
                     color: Color(0xFFABB2BE),
-                    margin: EdgeInsets.symmetric(vertical: 5),
+                    margin: EdgeInsets.symmetric(vertical: 5.h),
                   ),
                   SizedBox(
-                    width: 5,
+                    width: 5.w,
                   ),
                   Row(
                     children: [
                       SvgPicture.asset(
                         'assets/svg/date_time_flat.svg',
-                        height: 24,
-                        width: 24,
+                        height: 24.h,
+                        width: 24.w,
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 5.w,
                       ),
                       Text(
                         '22/11 - 25/11',
                         style: GoogleFonts.inter(
                           color: Color(0xFF5A6684),
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       )
@@ -92,18 +98,55 @@ class MyTripsScreen extends ConsumerWidget {
           bottom: TabBar(
             dividerColor: Colors.grey.shade300,
             indicator: UnderlineTabIndicator(
-              borderSide: BorderSide(width: 2.0, color: primaryColor),
+              borderSide: BorderSide(width: 2.0.w, color: primaryColor),
             ),
-            tabs: const [
-              Tab(icon: Icon(Icons.directions_car), text: "Car"),
-              Tab(icon: Icon(Icons.directions_transit), text: "Transit"),
-              Tab(icon: Icon(Icons.directions_bike), text: "Bike"),
+            labelStyle: GoogleFonts.inter(
+              color: Color(0xFF6366F1),
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+            ),
+            unselectedLabelStyle: GoogleFonts.inter(
+              color: Color(0xFFABB2BE),
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+            ),
+            onTap: (index) {
+              tripListNotifier.setTabIndex(index);
+            },
+            tabs: [
+              Tab(
+                icon: SvgPicture.asset(
+                  'assets/svg/boat_flat.svg',
+                  height: 24.h,
+                  width: 24.w,
+                  color: currentTabIndex == 0 ? primaryColor : Colors.grey,
+                ),
+                text: "Boats",
+              ),
+              Tab(
+                icon: SvgPicture.asset(
+                  'assets/svg/car_flat.svg',
+                  height: 24.h,
+                  width: 24.w,
+                  color: currentTabIndex == 1 ? primaryColor : Colors.grey,
+                ),
+                text: "Cars",
+              ),
+              Tab(
+                icon: SvgPicture.asset(
+                  'assets/svg/house_flat.svg',
+                  height: 24.h,
+                  width: 24.w,
+                  color: currentTabIndex == 2 ? primaryColor : Colors.grey,
+                ),
+                text: "Stays",
+              ),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            Center(child: Text('Car Tab')),
+            const Center(child: Text('Car Tab')),
             ListView.builder(
               itemCount: tripList.length,
               itemBuilder: (context, index) {
@@ -115,26 +158,27 @@ class MyTripsScreen extends ConsumerWidget {
                   rating: trip.rating,
                   count: trip.count,
                   amount: trip.amount,
+                  topHost: trip.topHost,
+                  deal: trip.deal,
                   date: DateFormat.yMMMEd().format(trip.date).toString(),
                   location: trip.location,
-                  isTopHost: 'YES',
                   onLongPress: () async {
                     await showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text(
-                          'Are you sure?',
-                          style: GoogleFonts.inter(
-                            color: primaryColor,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        // title: Text(
+                        //   'Are you sure?',
+                        //   style: GoogleFonts.inter(
+                        //     color: primaryColor,
+                        //     fontSize: 25.sp,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
                         content: Text(
-                          'Do you want to',
+                          'I Want to...',
                           style: GoogleFonts.inter(
                             color: primaryColor,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -147,7 +191,7 @@ class MyTripsScreen extends ConsumerWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      AddTripScreen(trip: trip),
+                                      UpdateTripScreen(trip: trip),
                                 ),
                               );
                             },
@@ -155,7 +199,7 @@ class MyTripsScreen extends ConsumerWidget {
                               'Edit',
                               style: GoogleFonts.inter(
                                 color: primaryColor,
-                                fontSize: 18,
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -174,7 +218,7 @@ class MyTripsScreen extends ConsumerWidget {
                               'Delete',
                               style: GoogleFonts.inter(
                                 color: Color(0xFF4F4F4F),
-                                fontSize: 18,
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -186,36 +230,12 @@ class MyTripsScreen extends ConsumerWidget {
                 );
               },
             ),
-            Center(
-              child: Text('Bike Tab'),
+            const Center(
+              child: Text('Stays Tab'),
             ),
           ],
         ),
       ),
     );
-  }
-}
-
-class CustomTabIndicator extends Decoration {
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _CustomTabIndicatorPainter();
-  }
-}
-
-class _CustomTabIndicatorPainter extends BoxPainter {
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final Paint paint = Paint();
-    paint.color = Colors.white;
-    paint.style = PaintingStyle.fill;
-    final double width =
-        configuration.size!.width / 2; // Adjust the width as needed
-    const double height = 4.0; // Adjust the height as needed
-    final double xOffset = offset.dx + (configuration.size!.width - width) / 2;
-    final double yOffset = offset.dy + configuration.size!.height - height;
-    final Rect rect = Rect.fromLTWH(xOffset, yOffset, width, height);
-    final RRect rrect = RRect.fromRectAndRadius(rect, Radius.circular(4.0));
-    canvas.drawRRect(rrect, paint);
   }
 }

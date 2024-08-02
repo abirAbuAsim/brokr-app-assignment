@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,9 +12,10 @@ class TravelCard extends StatelessWidget {
   final String rating;
   final String count;
   final String amount;
+  final bool topHost;
+  final bool deal;
   final String date;
   final String location;
-  final String isTopHost;
   final VoidCallback onLongPress;
 
   const TravelCard({
@@ -25,22 +26,23 @@ class TravelCard extends StatelessWidget {
     required this.rating,
     required this.count,
     required this.amount,
+    required this.topHost,
+    required this.deal,
     required this.date,
     required this.location,
-    required this.isTopHost,
     required this.onLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsetsDirectional.symmetric(horizontal: 15, vertical: 5),
+      margin: EdgeInsetsDirectional.symmetric(horizontal: 15.w, vertical: 5.h),
       shape: RoundedRectangleBorder(
-        side: const BorderSide(width: 0.70, color: Color(0xFFD3D3D3)),
-        borderRadius: BorderRadius.circular(15),
+        side: BorderSide(width: 0.70.w, color: Color(0xFFD3D3D3)),
+        borderRadius: BorderRadius.circular(15.r),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         onLongPress: onLongPress,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,65 +50,86 @@ class TravelCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 172,
-                  decoration: const ShapeDecoration(
+                  height: 172.h,
+                  decoration: ShapeDecoration(
                     image: DecorationImage(
-                      image:
-                          NetworkImage("https://via.placeholder.com/384x172"),
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.fill,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
+                        topLeft: Radius.circular(15.r),
+                        topRight: Radius.circular(15.r),
                       ),
                     ),
                   ),
                 ),
-                if (isTopHost == 'YES')
+                if (topHost)
                   Positioned(
-                    top: 8,
-                    left: 8,
+                    top: 15,
+                    left: 20,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
+                      // width: 88,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                      ),
+                      height: 24.h,
+                      decoration: ShapeDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                          ),
-                        ],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
                       ),
                       child: Row(
                         children: [
                           SvgPicture.asset(
                             'assets/svg/host_flat.svg',
-                            height: 14,
-                            width: 14,
+                            height: 18.h,
+                            width: 18.w,
                           ),
-                          const SizedBox(width: 4),
-                          const Text(
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
                             'Top host',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
-                              height: 1,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
+                if (deal)
+                  Positioned(
+                    bottom: 20,
+                    right: 25,
+                    child: Container(
+                      width: 48.w,
+                      height: 48.h,
+                      decoration: const ShapeDecoration(
+                        color: Color(0xFF6366F1),
+                        shape: OvalBorder(),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'DEAL',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -118,8 +141,8 @@ class TravelCard extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,42 +151,42 @@ class TravelCard extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             'assets/svg/star_flat.svg',
-                            height: 14,
-                            width: 14,
+                            height: 14.h,
+                            width: 14.w,
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           Text(
                             rating,
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
                               color: Color(0xFF646464),
-                              fontSize: 8.71,
+                              fontSize: 8.71.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           Text(
                             '|',
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
                               color: Color(0xFF4F4F4F),
-                              fontSize: 8.71,
+                              fontSize: 8.71.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           Text(
                             '$count Trips',
                             textAlign: TextAlign.right,
                             style: GoogleFonts.inter(
                               color: Color(0xFF646464),
-                              fontSize: 8.71,
+                              fontSize: 8.71.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -176,7 +199,7 @@ class TravelCard extends StatelessWidget {
                               text: '\$$amount/',
                               style: GoogleFonts.inter(
                                 color: Colors.black,
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -184,7 +207,7 @@ class TravelCard extends StatelessWidget {
                               text: 'day',
                               style: GoogleFonts.inter(
                                 color: Color(0xFF4F4F4F),
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -194,24 +217,24 @@ class TravelCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Row(
                     children: [
                       SvgPicture.asset(
                         'assets/svg/location_flat.svg',
-                        height: 14,
-                        width: 14,
+                        height: 14.h,
+                        width: 14.w,
                       ),
-                      const SizedBox(
-                        width: 5,
+                      SizedBox(
+                        width: 5.w,
                       ),
                       Text(
                         '$location mi from current location',
                         style: GoogleFonts.inter(
                           color: const Color(0xFF646464),
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -226,3 +249,4 @@ class TravelCard extends StatelessWidget {
     );
   }
 }
+

@@ -1,5 +1,6 @@
 import 'package:brokr/core/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -37,11 +38,11 @@ class CustomTextFormField extends StatelessWidget {
           headingTitle ?? '',
           style: GoogleFonts.inter(
             color: primaryColor,
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
           ),
         ),
-        SizedBox(height: 5,),
+        SizedBox(height: 5.h,),
         TextFormField(
           controller: controller,
           obscureText: obscure!,

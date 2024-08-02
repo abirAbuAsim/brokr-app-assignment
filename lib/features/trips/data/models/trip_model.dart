@@ -1,40 +1,18 @@
-import 'package:hive_flutter/hive_flutter.dart';
-
 import '../../domain/entitites/trip.dart';
 
-part 'trip_model.g.dart';
-
-@HiveType(typeId: 0)
 class TripModel {
-  @HiveField(0)
+
   final int id;
-
-  @HiveField(1)
   final String title;
-
-  @HiveField(2)
   final List<String> photos;
-
-  @HiveField(3)
   final String description;
-
-  @HiveField(4)
   final String rating;
-
-  @HiveField(5)
   final String count;
-
-  @HiveField(6)
   final String amount;
-
-  @HiveField(7)
+  final bool topHost;
+  final bool deal;
   final DateTime date;
-
-  @HiveField(8)
   final String location;
-
-  @HiveField(9)
-  final String isTopHost;
 
   TripModel({
     required this.id,
@@ -44,9 +22,10 @@ class TripModel {
     required this.rating,
     required this.count,
     required this.amount,
+    required this.topHost,
+    required this.deal,
     required this.date,
     required this.location,
-    required this.isTopHost,
   });
   // Conversion from Entity to Model
   factory TripModel.fromEntity(Trip trip) => TripModel(
@@ -57,9 +36,11 @@ class TripModel {
       rating: trip.rating,
       count: trip.count,
       amount: trip.amount,
+      topHost: trip.topHost,
+      deal: trip.deal,
       date: trip.date,
-      location: trip.location,
-      isTopHost: trip.isTopHost);
+      location: trip.location
+  );
 
   // Conversion from Model to Entity
   Trip toEntity() => Trip(
@@ -70,7 +51,10 @@ class TripModel {
       rating: rating,
       count: count,
       amount: amount,
+      topHost: topHost,
+      deal: deal,
       date: date,
-      location: location,
-      isTopHost: isTopHost);
+      location: location
+  );
+
 }

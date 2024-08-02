@@ -1,59 +1,18 @@
-import 'dart:developer';
-
-import 'package:hive_flutter/hive_flutter.dart';
-
 import '../models/trip_model.dart';
 
 class TripLocalDataSource {
-  final Box<TripModel> tripBox;
 
-  TripLocalDataSource(this.tripBox);
+  final List<TripModel> allNewTrip;
 
-  final allNewTrip = [
-    TripModel(
-      id: 1,
-      title: 'Title card item full name',
-      description: 'Description card item full name',
-      count: '10',
-      rating: '5',
-      amount: '999',
-      date: DateTime.now(),
-      location: '11.6',
-      isTopHost: 'YES',
-      photos: ['pictures'],
-    ),
-    TripModel(
-      id: 2,
-      title: 'Title card item full name',
-      description: 'Description card item full name',
-      count: '10',
-      rating: '5',
-      amount: '999',
-      date: DateTime.now(),
-      location: '11.6',
-      isTopHost: 'NO',
-      photos: ['pictures'],
-    ),
-    TripModel(
-      id: 3,
-      title: 'Title card item full name',
-      description: 'Description card item full name',
-      count: '10',
-      rating: '5',
-      amount: '999',
-      date: DateTime.now(),
-      location: '11.6',
-      isTopHost: 'YES',
-      photos: ['pictures'],
-    ),
-  ];
+  TripLocalDataSource(this.allNewTrip);
 
-  List<TripModel> getTrips() {
+
+  List<TripModel> getTrips(){
     return allNewTrip;
   }
 
   void addTrip(TripModel trip) {
-    tripBox.add(trip);
+    // tripBox.add(trip);
   }
 
   Future<void> updateTrip(TripModel trip) async {
@@ -68,12 +27,12 @@ class TripLocalDataSource {
       }
     }
   }
-
   void addAllNewTrip(List<TripModel> trip) {
-    tripBox.addAll(trip);
+    // tripBox.addAll(trip);
   }
 
   void deleteTrip(int index) {
     allNewTrip.removeAt(index);
   }
+
 }

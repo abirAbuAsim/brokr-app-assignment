@@ -118,7 +118,7 @@ class UpdateTripScreen extends ConsumerWidget {
                     ),
                     value: selectedTopHost,
                     onChanged: (bool? newValue) {
-                        selectedTopHost = newValue!;
+                      selectedTopHost = newValue!;
                     },
                     items: [
                       DropdownMenuItem<bool>(
@@ -254,8 +254,19 @@ class UpdateTripScreen extends ConsumerWidget {
                             Navigator.pop(context);
                           }
                         },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(384,
+                              50), // Fixed size to match the rectangle's design
+                          backgroundColor: const Color(
+                              0xFF6366F1), // Set to the specific color of the rectangle
+                          foregroundColor: Colors.white, // White text
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                10), // Border radius of 10
+                          ),
+                        ),
                         child: Text(
-                          'Update Trip',
+                          'Update',
                           style: GoogleFonts.inter(fontWeight: FontWeight.w700),
                         ),
                       ),

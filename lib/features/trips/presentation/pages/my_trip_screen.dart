@@ -1,4 +1,5 @@
 import 'package:brokr/core/tools.dart';
+import 'package:brokr/features/trips/presentation/widgets/choose_action_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,6 @@ import 'package:intl/intl.dart';
 
 import '../providers/trip_provider.dart';
 import '../widgets/travel_card.dart';
-import 'update_trip_screen.dart';
 
 class MyTripsScreen extends ConsumerWidget {
   const MyTripsScreen({super.key});
@@ -163,69 +163,8 @@ class MyTripsScreen extends ConsumerWidget {
                   date: DateFormat.yMMMEd().format(trip.date).toString(),
                   location: trip.location,
                   onLongPress: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        // title: Text(
-                        //   'Are you sure?',
-                        //   style: GoogleFonts.inter(
-                        //     color: primaryColor,
-                        //     fontSize: 25.sp,
-                        //     fontWeight: FontWeight.w500,
-                        //   ),
-                        // ),
-                        content: Text(
-                          'I Want to...',
-                          style: GoogleFonts.inter(
-                            color: primaryColor,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        actionsAlignment: MainAxisAlignment.center,
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      UpdateTripScreen(trip: trip),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Edit',
-                              style: GoogleFonts.inter(
-                                color: primaryColor,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              ref
-                                  .read(tripListNotifierProvider.notifier)
-                                  .removeTrip(index);
-                              ref
-                                  .read(tripListNotifierProvider.notifier)
-                                  .loadTrips();
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              'Delete',
-                              style: GoogleFonts.inter(
-                                color: Color(0xFF4F4F4F),
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                    // Show the dialog
+                    showChooseActionDialog(context, trip, index, ref);
                   },
                 );
               },

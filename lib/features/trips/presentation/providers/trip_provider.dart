@@ -22,9 +22,7 @@ final trips = [
     location: '11.6',
     topHost: true,
     deal: false,
-    photos: [
-      'https://images.unsplash.com/photo-1570294646112-27ce4f174e38?ixlib=rb-4.0.3'
-    ],
+    photos: ['assets/images/c1.png'],
   ),
   Trip(
     id: 2,
@@ -37,9 +35,7 @@ final trips = [
     deal: true,
     date: DateTime.now(),
     location: '11.6',
-    photos: [
-      'https://images.unsplash.com/photo-1570294646112-27ce4f174e38?ixlib=rb-4.0.3'
-    ],
+    photos: ['assets/images/c1.png'],
   ),
   Trip(
     id: 3,
@@ -52,9 +48,7 @@ final trips = [
     deal: true,
     date: DateTime.now(),
     location: '11.6',
-    photos: [
-      'https://images.unsplash.com/photo-1570294646112-27ce4f174e38?ixlib=rb-4.0.3'
-    ],
+    photos: ['assets/images/c1.png'],
   ),
 ];
 
@@ -104,7 +98,8 @@ final tripListNotifierProvider =
   final updateTrip = ref.read(updateTripProvider);
   final deleteTrip = ref.read(deleteTripProvider);
 
-  final notifier = TripListNotifier(getTrips, addTrip, addAllNewTrip, updateTrip, deleteTrip);
+  final notifier = TripListNotifier(
+      getTrips, addTrip, addAllNewTrip, updateTrip, deleteTrip);
   notifier.loadTrips(); // Load trips on initialization
   return notifier;
 });
@@ -124,8 +119,9 @@ class TripListNotifier extends StateNotifier<TripListState> {
   Future<void> loadTrips() async {
     final tripsOrFailure = await _getTrips();
     tripsOrFailure.fold(
-          (error) => state = state.copyWith(trips: []), // Handle the error state more gracefully as needed
-          (trips) => state = state.copyWith(trips: trips),
+      (error) => state = state.copyWith(
+          trips: []), // Handle the error state more gracefully as needed
+      (trips) => state = state.copyWith(trips: trips),
     );
   }
 

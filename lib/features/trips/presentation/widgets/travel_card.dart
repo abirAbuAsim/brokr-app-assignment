@@ -53,7 +53,7 @@ class TravelCard extends StatelessWidget {
                   height: 172.h,
                   decoration: ShapeDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(imageUrl),
+                      image: AssetImage(imageUrl),
                       fit: BoxFit.fill,
                     ),
                     shape: RoundedRectangleBorder(
@@ -249,4 +249,3 @@ class TravelCard extends StatelessWidget {
     );
   }
 }
-
